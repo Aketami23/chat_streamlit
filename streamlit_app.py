@@ -14,12 +14,12 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
+    with st.chat_message(message["role"], avatar=message.get("avatar")):
         st.markdown(message["content"])
 
 
 if prompt := st.chat_input("What is up?"):
-    st.session_state.messages.append({"role": "user", "content": prompt})
+    st.session_state.messages.append({"role": "user", "content": prompt, "avatar": avatar_url_me})
     with st.chat_message("aketami", avatar=avatar_url_me):
         st.markdown(prompt)
 
@@ -38,5 +38,5 @@ if prompt := st.chat_input("What is up?"):
         )
         response = st.write_stream(stream)
 
-    st.session_state.messages.append({"role": "assistant", "content": response})
+    st.session_state.messages.append({"role": "assistant", "content": response, "avatar": avatar_url})
     
